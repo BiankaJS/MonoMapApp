@@ -1,5 +1,5 @@
-import { Request, Response } from 'express'
-import { CaseModel } from '../../../data/models/case.model'
+import { Request, Response } from 'express';
+import { CaseModel } from '../../../data/models/case.model';
 
 export class CaseController {
     public getCases = async (req: Request, res: Response) => {
@@ -23,8 +23,9 @@ export class CaseController {
 
     public createNewCase = async (req: Request, res: Response) => {
         try {
-            const { lat, lng, genre, age } = req.body;
+            const { fullName, lat, lng, genre, age } = req.body;
             const newCase = await CaseModel.create({
+                fullName,
                 lat,
                 lng,
                 genre,
@@ -38,12 +39,12 @@ export class CaseController {
     }
 
     public updateCase = async (req: Request, res: Response) => {
-        try 
-        {
+        try {
             const { id } = req.params;
-            const {age, genre, lat, lng} = req.body;
+            const { fullName, age, genre, lat, lng} = req.body;
       
             await CaseModel.findByIdAndUpdate(id, {
+                fullName,
                 lat,
                 lng,
                 genre,
