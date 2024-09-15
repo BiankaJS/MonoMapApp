@@ -1,0 +1,26 @@
+name: Docker Build & Publish
+
+on:
+    push:
+        branches:
+            - master
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone code
+              uses: actions/checkout@v2
+
+            - name: Login to Docker hub
+              run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+            
+            - name: Build docker image
+              run: docker build -t bjs24/mono-api:${{ github.sha }} .
+
+            - name: Tag latest
+              run: docker tag bjs24/mono-api:${{ github.sha }} bjs24/mono-api:latest
+
+            - name: Push docker image
+              run: | 
+                docker push bjs24/mono-api:${{ github.sha }}
+                docker push bjs24/mono-api:latest
