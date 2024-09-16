@@ -79,7 +79,7 @@ src/
 ├── data/             # Implementación de acceso a datos (repositorios, modelos)
 ├── domain/           # Entidades y casos de uso (lógica de negocio)
 ├── presentation/     # Controladores, rutas, validaciones y respuestas HTTP
-└──app.ts            # Punto de entrada de la aplicación
+└── app.ts            # Punto de entrada de la aplicación
 ```
 
 ### Carpetas principales:
