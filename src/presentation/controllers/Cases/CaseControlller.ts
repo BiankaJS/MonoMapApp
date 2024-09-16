@@ -67,4 +67,26 @@ export class CaseController {
             return res.json({ message: "Ocurrio un error."}) 
         }
     }
+
+    public getCaseRecent = async (req: Request, res: Response) => {
+        try {
+            const sevenDaysAgo = new Date();
+            const now = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+            console.log(now, sevenDaysAgo);
+
+            const recentCases = await CaseModel.find({
+                creationDate: { 
+                    $gte: sevenDaysAgo,
+                    $lte: now
+                }
+            });
+
+            return res.json(recentCases);
+        } catch (error) {
+            console.error("Error al obtener los casos recientes:", error);
+            return res.json([]);
+        }
+    }
 }

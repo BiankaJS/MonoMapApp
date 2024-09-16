@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(AppRoutes.routes);
 
 (async () => {
-  await MongoDatabase.connect({ mongoUrl: envs.MONGO_URL ?? "", dbName: "Cases" });
+  await MongoDatabase.connect({ mongoUrl: envs.MONGO_URL ?? "", dbName: "dbCasesMono" });
 })();
   
 app.listen(envs.PORT, () => {
