@@ -10,8 +10,6 @@ Este proyecto es una API RESTful construida con Node.js y TypeScript, siguiendo 
 - [Uso](#uso)
 - [Docker](#docker)
 - [GitHub Actions](#github-actions)
-- [Contribución](#contribución)
-- [Licencia](#licencia)
 
 ## Requisitos
 
