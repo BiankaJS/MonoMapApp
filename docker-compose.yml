@@ -5,7 +5,7 @@ services:
     image: bjs24/mono-api:latest
     container_name: mono-api
     ports:
-      - "3001:3000"
+      - "3001:3001"
     platform: linux/amd64
     environment:
       MONGO_URL: ${MONGO_URL_DOCKER}

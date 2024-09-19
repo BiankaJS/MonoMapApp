@@ -11,7 +11,6 @@ export class casesRoutes {
         router.get("/:id", controller.getCaseById);
         router.put("/:id", controller.updateCase);
         router.delete("/:id", controller.deleteCase);
-        router.get("/recent", controller.getCaseRecent);
         return router;
     }
 }

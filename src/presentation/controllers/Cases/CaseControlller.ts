@@ -4,7 +4,28 @@ import { CaseModel } from '../../../data/models/case.model';
 export class CaseController {
     public getCases = async (req: Request, res: Response) => {
         try {
-            const cases = await CaseModel.find();
+            const isLastWeek = req.query.isLastWeek;
+            var cases;
+
+            if(isLastWeek != null && isLastWeek == 'true')
+            {
+                const sevenDaysAgo = new Date();
+                const now = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+                console.log(now, sevenDaysAgo);
+
+                cases = await CaseModel.find({
+                    creationDate: { 
+                        $gte: sevenDaysAgo,
+                        $lte: now
+                    }
+                });
+            }
+            else {
+                cases = await CaseModel.find();
+            }
+
             return res.json(cases);
         } catch (error) {
             return res.json([])
@@ -17,6 +38,7 @@ export class CaseController {
             const _case = await CaseModel.findById(id);
             return res.json(_case);
         } catch (error) {
+            console.error(error);
             return res.json([]);
         }
     }
@@ -65,28 +87,6 @@ export class CaseController {
             res.json({ message: "Todo bien" })
         } catch (error) {
             return res.json({ message: "Ocurrio un error."}) 
-        }
-    }
-
-    public getCaseRecent = async (req: Request, res: Response) => {
-        try {
-            const sevenDaysAgo = new Date();
-            const now = new Date();
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-            console.log(now, sevenDaysAgo);
-
-            const recentCases = await CaseModel.find({
-                creationDate: { 
-                    $gte: sevenDaysAgo,
-                    $lte: now
-                }
-            });
-
-            return res.json(recentCases);
-        } catch (error) {
-            console.error("Error al obtener los casos recientes:", error);
-            return res.json([]);
         }
     }
 }
